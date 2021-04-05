@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/search_appbar"
+        layout="@layout/include_appbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_appbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/padding_SE_default"
+            android:paddingTop="@dimen/padding_TB_default"
+            android:paddingEnd="@dimen/padding_SE_default"
+            android:paddingBottom="@dimen/padding_TB_default">
+
+            <EditText
+                android:id="@+id/search_keyword"
+                style="@style/AppTheme.EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_keyword"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/search_bookmarks"
+                style="@style/AppTheme.EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_default"
+                android:hint="@string/hint_bookmarks"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                app:layout_constraintTop_toBottomOf="@+id/search_keyword" />
+
+            <AutoCompleteTextView
+                android:id="@+id/search_order"
+                style="@style/AppTheme.AutoCompleteTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_default"
+                android:hint="@string/hint_order"
+                app:layout_constraintTop_toBottomOf="@+id/search_bookmarks" />
+
+            <AutoCompleteTextView
+                android:id="@+id/search_age"
+                style="@style/AppTheme.AutoCompleteTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_default"
+                android:hint="@string/hint_age"
+                app:layout_constraintTop_toBottomOf="@+id/search_order" />
+
+            <TextView
+                android:id="@+id/search_download"
+                style="@style/AppTheme.ButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                app:layout_constraintTop_toBottomOf="@id/search_age" />
+
+            <TextView
+                android:id="@+id/search_help"
+                style="@style/AppTheme.ButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:backgroundTint="@color/color_signature_light_gray"
+                android:text="@string/label_help"
+                android:textColor="@color/color_signature_dark_gray"
+                app:layout_constraintTop_toBottomOf="@id/search_download" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

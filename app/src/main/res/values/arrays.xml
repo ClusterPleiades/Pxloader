@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="input_orders">
+        <item>Newest</item>
+        <item>Oldest</item>
+    </string-array>
+
+    <string-array name="input_ages">
+        <item>All</item>
+        <item>All Ages</item>
+        <item>R-18</item>
+    </string-array>
+
+    <string-array name="input_ages_guest">
+        <item>All Ages</item>
+    </string-array>
+
+    <string-array name="input_aggregation_modes">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Popular amongst Males</item>
+        <item>Popular amongst Females</item>
+        <item>Rookie</item>
+        <item>Original</item>
+        <item>R-18 Daily</item>
+        <item>R-18 Weekly</item>
+        <item>R-18 Popular amongst Males</item>
+        <item>R-18 Popular amongst Females</item>
+        <item>R-18G</item>
+    </string-array>
+
+    <string-array name="input_aggregation_modes_guest">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Popular amongst Males</item>
+        <item>Popular amongst Females</item>
+        <item>Rookie</item>
+        <item>Original</item>
+    </string-array>
+
+    <string-array name="input_publicities">
+        <item>Public</item>
+        <item>Private</item>
+    </string-array>
+
+    <string-array name="contents_formats">
+        <item>User ID (number)</item>
+        <item>User Name</item>
+        <item>Work Uploaded Date</item>
+        <item>Work Id (number)</item>
+        <item>Work Title</item>
+        <item>Work Bookmarks</item>
+    </string-array>
+
+    <string-array name="help_message_search">
+        <item>Enter the search Keyword.</item>
+        <item>Enter the Minimum Number of Likes.\n(Only works have more likes than the input value are downloaded)</item>
+        <item>Select the sort Order.\n(Sequentiality is not fully guaranteed)</item>
+        <item>Select the Age Limit.\n(R-18 works may be omitted depending on account settings)</item>
+        <item>Click the Download button.</item>
+    </string-array>
+
+    <string-array name="help_message_user">
+        <item>Access the user page on Pixiv app.</item>
+        <item>Click the overflow button at the top right.</item>
+        <item>Select share.</item>
+        <item>Select the Pxloader.</item>
+    </string-array>
+
+    <string-array name="help_message_work">
+        <item>Access the work page on Pixiv app.</item>
+        <item>Click the share button at the top right.</item>
+        <item>Select the Pxloader.</item>
+    </string-array>
+</resources>

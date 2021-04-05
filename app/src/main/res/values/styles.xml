@@ -1,0 +1,174 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- colorAccent -->
+        <item name="colorAccent">@color/color_signature_light_blue</item>
+
+        <!-- status bar -->
+        <item name="android:statusBarColor">@color/color_signature_dark_blue</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!-- action bar -->
+        <item name="windowActionBar">false</item> <!-- no action bar -->
+        <item name="windowNoTitle">true</item> <!-- no action bar -->
+        <item name="actionOverflowMenuStyle">@style/ActionOverflowMenuStyle</item> <!-- action bar popup menu -->
+        <item name="actionOverflowButtonStyle">@style/WhiteActionOverflowButtonStyle</item> <!-- sets the style for the overflow button -->
+        <item name="android:actionButtonStyle">@style/ActionButtonStyle</item> <!-- action bar button -->
+        <item name="colorPrimary">@color/color_signature_light_blue</item> <!-- action bar color -->
+        <item name="elevation">0dp</item> <!-- remove shadow -->
+        <item name="popupTheme">@style/PopupTheme</item>
+
+        <!-- text -->
+        <item name="android:textColorPrimary">@color/color_signature_dark_gray</item>
+        <item name="android:textColor">@color/color_signature_dark_gray</item>
+        <item name="android:textColorHint">@color/color_signature_gray</item>
+        <item name="android:textSize">@dimen/text_size_default</item>
+
+        <!-- window -->
+        <item name="android:windowBackground">@android:color/white</item>
+
+        <!-- divider -->
+        <item name="android:listDivider">@color/color_signature_light_gray</item>
+
+        <!-- ripple effect -->
+        <item name="colorControlHighlight">@color/color_signature_light_gray</item>
+    </style>
+
+    <!-- splash theme -->
+    <style name="AppTheme.SplashTheme">
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowBackground">@drawable/drawable_splash</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+    </style>
+
+    <!-- app bar theme -->
+    <style name="AppTheme.WhiteAppbarTheme">
+        <item name="android:textColor">@android:color/white</item> <!-- item long click title color -->
+        <item name="android:tint">@color/color_signature_dark_gray</item> <!-- icons -->
+        <item name="colorPrimary">@android:color/white</item> <!-- background -->
+        <item name="actionOverflowButtonStyle">@style/DarkActionOverflowButtonStyle</item>
+    </style>
+
+    <style name="AppTheme.BlueAppbarTheme">
+        <item name="android:tint">@android:color/white</item> <!-- appbar icon, backpress icon -->
+        <item name="actionOverflowButtonStyle">@style/WhiteActionOverflowButtonStyle</item> <!-- sets the style for the overflow button -->
+        <item name="android:textColor">@android:color/white</item> <!-- menu item long click title color -->
+    </style>
+
+    <style name="AppTheme.BlueToolbarTitleTextAppearance">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.WhiteToolbarTitleTextAppearance">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/color_signature_dark_gray</item>
+    </style>
+
+    <!-- styles for themes -->
+    <style name="WhiteActionOverflowButtonStyle" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@android:color/white</item>
+    </style>
+
+    <style name="DarkActionOverflowButtonStyle" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/color_signature_dark_gray</item>
+    </style>
+
+    <style name="ActionOverflowMenuStyle" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="elevation">0dp</item>
+        <item name="android:popupElevation">0dp</item>
+    </style>
+
+    <style name="ActionButtonStyle" parent="@android:style/Widget.ActionButton">
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:textColor">@color/color_signature_dark_gray</item> <!-- pop up menu title color -->
+    </style>
+
+    <style name="PopupTheme">
+        <item name="colorControlHighlight">@color/color_signature_light_gray</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <!-- styles for components-->
+    <style name="AppTheme.TabLayoutStyle">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_margin">@dimen/margin_small</item>
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabMode">scrollable</item>
+        <item name="tabRippleColor">@null</item>
+        <item name="tabBackground">@drawable/drawable_tab_layout</item>
+        <item name="tabSelectedTextColor">@android:color/white</item>
+        <item name="tabTextAppearance">@style/TabTextAppearance</item>
+        <item name="tabTextColor">@color/color_signature_gray</item>
+    </style>
+
+    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textStyle">bold</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="AppTheme.EditTextStyle">
+        <item name="android:background">@drawable/drawable_edit</item>
+        <item name="android:imeOptions">actionDone</item>
+    </style>
+
+    <style name="AppTheme.AutoCompleteTextViewStyle">
+        <item name="android:inputType">text</item>
+        <item name="android:background">@drawable/drawable_edit</item>
+        <item name="android:completionThreshold">1</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:popupElevation">0dp</item>
+    </style>
+
+    <style name="AppTheme.ButtonStyle">
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:text">@string/button_download</item>
+        <item name="android:background">@drawable/ripple_button</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <!-- styles for dialogs -->
+    <style name="AlertDialogBuilderTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="buttonStyle">@style/ButtonBarButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/ButtonBarButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/ButtonBarButtonStyle</item>
+        <item name="buttonBarButtonStyle">@style/ButtonBarButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/ButtonBarButtonStyle</item>
+
+        <item name="android:textColor">@color/color_signature_dark_gray</item>
+        <item name="android:textColorPrimary">@color/color_signature_dark_gray</item>
+        <item name="colorAccent">@color/color_signature_light_blue</item> <!-- spinner color -->
+
+        <item name="colorControlHighlight">@color/color_signature_light_gray</item>
+    </style>
+
+    <style name="DatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:datePickerStyle">@style/DatePickerStyle</item>
+
+        <item name="buttonStyle">@style/ButtonBarButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/ButtonBarButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/ButtonBarButtonStyle</item>
+        <item name="buttonBarButtonStyle">@style/ButtonBarButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/ButtonBarButtonStyle</item>
+
+        <item name="android:textColor">@color/color_signature_dark_gray</item>
+        <item name="android:textColorPrimary">@color/color_signature_dark_gray</item>
+        <item name="colorAccent">@color/color_signature_light_blue</item>
+
+        <item name="android:textColorPrimaryInverse">@android:color/white</item> <!-- header date, month color && calendar text highlight color -->
+        <item name="android:textColorSecondaryInverse">@android:color/white</item> <!-- header year color -->
+
+        <item name="colorControlHighlight">@color/color_signature_light_gray</item>
+    </style>
+
+    <style name="ButtonBarButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/color_signature_light_blue</item>
+    </style>
+
+    <style name="DatePickerStyle" parent="@android:style/Widget.Material.Light.DatePicker">
+        <item name="android:headerBackground">@color/color_signature_light_blue</item>
+    </style>
+</resources>

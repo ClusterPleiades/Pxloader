@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.pleiades.pleione.pixivdownloader.ui.activity.MainActivity">
+
+    <item
+        android:id="@+id/setting"
+        android:title="@string/label_settings"
+        app:showAsAction="never" />
+
+</menu>

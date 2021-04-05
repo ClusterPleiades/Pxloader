@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="input_orders">
+        <item>최신순</item>
+        <item>과거순</item>
+    </string-array>
+
+    <string-array name="input_ages">
+        <item>전부</item>
+        <item>전 연령</item>
+        <item>R-18</item>
+    </string-array>
+
+    <string-array name="input_ages_guest">
+        <item>전 연령</item>
+    </string-array>
+
+    <string-array name="input_aggregation_modes">
+        <item>일일</item>
+        <item>주간</item>
+        <item>월간</item>
+        <item>남성들에게 인기</item>
+        <item>여성들에게 인기</item>
+        <item>신인</item>
+        <item>창작</item>
+        <item>R-18 일일</item>
+        <item>R-18 주간</item>
+        <item>R-18 남성들에게 인기</item>
+        <item>R-18 여성들에게 인기</item>
+        <item>R-18G</item>
+    </string-array>
+
+    <string-array name="input_aggregation_modes_guest">
+        <item>일일</item>
+        <item>주간</item>
+        <item>월간</item>
+        <item>남성들에게 인기</item>
+        <item>여성들에게 인기</item>
+        <item>신인</item>
+        <item>창작</item>
+    </string-array>
+
+    <string-array name="input_publicities">
+        <item>공개</item>
+        <item>비공개</item>
+    </string-array>
+
+    <string-array name="contents_formats">
+        <item>유저 아이디 (숫자)</item>
+        <item>유저 이름</item>
+        <item>작품 업로드 날짜</item>
+        <item>작품 아이디 (숫자)</item>
+        <item>작품 제목</item>
+        <item>작품 북마크 수</item>
+    </string-array>
+
+    <string-array name="help_message_search">
+        <item>검색어를 입력하세요.</item>
+        <item>최소 좋아요 수를 입력하세요.\n(입력값보다 좋아요가 많은 작품만 다운로드됩니다)</item>
+        <item>순서를 선택하세요.\n(순차성이 완전히 보장되지는 않습니다)</item>
+        <item>연령 제한을 선택하세요.\n(R-18 작품은 계정 설정에 따라 누락될 수 있습니다)</item>
+        <item>다운로드 버튼을 클릭하세요.</item>
+    </string-array>
+
+    <string-array name="help_message_user">
+        <item>픽시브 앱에서 유저 페이지에 접속하세요.</item>
+        <item>우측 상단의 오버플로우 버튼을 클릭하세요.</item>
+        <item>공유하기를 선택하세요.</item>
+        <item>Pxloader 를 선택하세요.</item>
+    </string-array>
+
+    <string-array name="help_message_work">
+        <item>픽시브 앱에서 작품 페이지에 접속하세요.</item>
+        <item>우측 상단의 공유하기 버튼을 클릭하세요.</item>
+        <item>Pxloader 를 선택하세요.</item>
+    </string-array>
+</resources>

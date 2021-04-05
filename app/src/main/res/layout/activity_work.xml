@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/work_appbar"
+        layout="@layout/include_appbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/work_appbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/padding_SE_default"
+            android:paddingTop="@dimen/padding_TB_default"
+            android:paddingEnd="@dimen/padding_SE_default"
+            android:paddingBottom="@dimen/padding_TB_default">
+
+            <EditText
+                android:id="@+id/work_id"
+                style="@style/AppTheme.EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_work_id"
+                android:inputType="number"
+                android:importantForAutofill="no"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/work_download"
+                style="@style/AppTheme.ButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                app:layout_constraintTop_toBottomOf="@id/work_id" />
+
+            <TextView
+                android:id="@+id/work_help"
+                style="@style/AppTheme.ButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:backgroundTint="@color/color_signature_light_gray"
+                android:text="@string/label_help"
+                android:textColor="@color/color_signature_dark_gray"
+                app:layout_constraintTop_toBottomOf="@id/work_download" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

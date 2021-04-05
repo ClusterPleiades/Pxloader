@@ -1,0 +1,25 @@
+<resources>
+    <!-- height -->
+    <dimen name="height_tab_layout">36dp</dimen>
+
+    <!-- size (width and height) -->
+    <dimen name="image_size_icon">64dp</dimen>
+    <dimen name="image_size_button">24dp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_default">14sp</dimen>
+    <dimen name="text_size_large">16sp</dimen>
+    <dimen name="text_size_very_large">18sp</dimen>
+
+    <!-- padding -->
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_default">16dp</dimen>
+    <dimen name="padding_SE_default">64dp</dimen>
+    <dimen name="padding_TB_default">36dp</dimen>
+    <dimen name="padding_TB_large">72dp</dimen>
+
+    <!-- margin -->
+    <dimen name="margin_very_small">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_default">16dp</dimen>
+    <dimen name="margin_large">36dp</dimen>
+</resources>
