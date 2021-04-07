@@ -3,7 +3,6 @@ package com.pleiades.pleione.pixivdownloader.ui.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -26,12 +25,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.load.resource.gif.GifDrawable;
-import com.bumptech.glide.request.target.DrawableImageViewTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.pleiades.pleione.pixivdownloader.Converter;
 import com.pleiades.pleione.pixivdownloader.DeviceController;
 import com.pleiades.pleione.pixivdownloader.R;
@@ -44,6 +41,13 @@ import com.pleiades.pleione.pixivdownloader.ui.activity.download.WorkActivity;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableOnSubscribe;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.widget.Toast.LENGTH_SHORT;
@@ -80,31 +84,14 @@ public class DownloadFragment extends Fragment {
         // set has options menu
         setHasOptionsMenu(true);
 
-        // initialize art list
-        if (artList == null) {
-            DocumentFile directoryDocumentFile = Converter.getDirectoryDocumentFile(context);
-            DeviceController.readArtList(artList = new ArrayList<>(), directoryDocumentFile);
-        }
-
-        // initialize thumbnail list
-        thumbnailList = new ArrayList<>();
-        thumbnailList.add(new Thumbnail(DOWNLOAD_TYPE_RANKINGS));
-        thumbnailList.add(new Thumbnail(DOWNLOAD_TYPE_FOLLOWING));
-        thumbnailList.add(new Thumbnail(DOWNLOAD_TYPE_COLLECTION));
-        thumbnailList.add(new Thumbnail(DOWNLOAD_TYPE_USER));
-        thumbnailList.add(new Thumbnail(DOWNLOAD_TYPE_WORK));
-        if (!prefs.getBoolean(KEY_IS_RATED, false) && prefs.getInt(KEY_COMPLETE_COUNT, 0) >= 3)
-            thumbnailList.add(new Thumbnail(DOWNLOAD_TYPE_RATING));
-
         // initialize search image view
         ImageView searchThumbnailImageView = rootView.findViewById(R.id.download_banner);
-        Thumbnail searchThumbnail = new Thumbnail(DOWNLOAD_TYPE_SEARCH);
         Glide.with(context)
-                .load((searchThumbnail.artPosition == -1) ? R.drawable.drawable_thumbnail_long : artList.get(searchThumbnail.artPosition).uri)
+                .load(R.drawable.drawable_thumbnail_long)
                 .centerCrop()
                 .transition(DrawableTransitionOptions.withCrossFade())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .override(DeviceController.getWidth(context), DeviceController.getWidth(context) / 2)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(searchThumbnailImageView);
         searchThumbnailImageView.setColorFilter(ContextCompat.getColor(context, R.color.color_signature_filter));
 
@@ -116,6 +103,16 @@ public class DownloadFragment extends Fragment {
             startActivity(intent);
         });
 
+        // initialize thumbnail list
+        thumbnailList = new ArrayList<>();
+        thumbnailList.add(new Thumbnail(DOWNLOAD_TYPE_RANKINGS));
+        thumbnailList.add(new Thumbnail(DOWNLOAD_TYPE_FOLLOWING));
+        thumbnailList.add(new Thumbnail(DOWNLOAD_TYPE_COLLECTION));
+        thumbnailList.add(new Thumbnail(DOWNLOAD_TYPE_USER));
+        thumbnailList.add(new Thumbnail(DOWNLOAD_TYPE_WORK));
+        if (!prefs.getBoolean(KEY_IS_RATED, false) && prefs.getInt(KEY_COMPLETE_COUNT, 0) >= 3)
+            thumbnailList.add(new Thumbnail(DOWNLOAD_TYPE_RATING));
+
         // initialize thumbnail recycler view
         RecyclerView thumbnailRecyclerView = rootView.findViewById(R.id.download_recycler);
         thumbnailRecyclerView.setHasFixedSize(true);
@@ -125,6 +122,53 @@ public class DownloadFragment extends Fragment {
         // initialize thumbnail recycler adapter
         downloadAdapter = new ThumbnailRecyclerAdapter();
         thumbnailRecyclerView.setAdapter(downloadAdapter);
+
+        Observable.create((ObservableOnSubscribe<String>) emitter -> {
+            // initialize art list
+            if (artList == null) {
+                DocumentFile directoryDocumentFile = Converter.getDirectoryDocumentFile(context);
+                DeviceController.readArtList(artList = new ArrayList<>(), directoryDocumentFile);
+            }
+
+            // on complete
+            emitter.onComplete();
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+
+                    @Override
+                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull String s) {
+
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        // initialize thumbnail art position
+                        for (Thumbnail thumbnail : thumbnailList)
+                            thumbnail.initializeArtPosition();
+                        Thumbnail searchThumbnail = new Thumbnail(DOWNLOAD_TYPE_SEARCH);
+                        searchThumbnail.initializeArtPosition();
+
+                        downloadAdapter.notifyItemRangeChanged(0, COUNT_DOWNLOAD_TYPE - 1);
+                        Glide.with(context)
+                                .load((searchThumbnail.artPosition == -1) ? R.drawable.drawable_thumbnail_long : artList.get(searchThumbnail.artPosition).uri)
+                                .centerCrop()
+                                .transition(DrawableTransitionOptions.withCrossFade())
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .override(DeviceController.getWidth(context), DeviceController.getWidth(context) / 2)
+                                .into(searchThumbnailImageView);
+                    }
+                });
 
         return rootView;
     }
@@ -194,39 +238,37 @@ public class DownloadFragment extends Fragment {
 
         public Thumbnail(int downloadType) {
             this.downloadType = downloadType;
+            this.artPosition = -1;
+        }
 
-            if (artList.size() == 0 || downloadType == DOWNLOAD_TYPE_RATING)
-                this.artPosition = -1;
-            else {
-                Random random = new Random();
+        public void initializeArtPosition() {
+            if (artList == null)
+                return;
+            if (artList.size() < COUNT_DOWNLOAD_TYPE)
+                return;
+            if (downloadType == DOWNLOAD_TYPE_RATING)
+                return;
 
-                // case enough arts
-                if (artList.size() >= COUNT_DOWNLOAD_TYPE) {
-                    // initialize forbidden position list
-                    ArrayList<Integer> forbiddenPositionList = new ArrayList<>();
-                    for (Thumbnail thumbnail : thumbnailList)
-                        forbiddenPositionList.add(thumbnail.artPosition);
-
-                    // initialize art position
-                    do {
-                        this.artPosition = random.nextInt(artList.size());
-                    } while (forbiddenPositionList.contains(artPosition));
-                }
-                // case not enough arts
-                else
-                    this.artPosition = random.nextInt(artList.size());
-            }
+            ArrayList<Integer> existArtPositionList = new ArrayList<>();
+            for (Thumbnail thumbnail : thumbnailList)
+                existArtPositionList.add(thumbnail.artPosition);
+            Random random = new Random();
+            do {
+                this.artPosition = random.nextInt(artList.size());
+            } while (existArtPositionList.contains(this.artPosition));
         }
     }
 
     private class ThumbnailRecyclerAdapter extends RecyclerView.Adapter<ThumbnailRecyclerAdapter.ArtViewHolder> {
         class ArtViewHolder extends RecyclerView.ViewHolder {
             ImageView thumbnailImageView;
+            LottieAnimationView thumbnailLottieAnimationView;
             TextView titleTextView;
 
             ArtViewHolder(View itemView) {
                 super(itemView);
                 thumbnailImageView = itemView.findViewById(R.id.download_image);
+                thumbnailLottieAnimationView = itemView.findViewById(R.id.download_lottie_animation);
                 titleTextView = itemView.findViewById(R.id.download_title);
 
                 itemView.setOnClickListener(v -> {
@@ -280,31 +322,19 @@ public class DownloadFragment extends Fragment {
         public void onBindViewHolder(@NonNull ThumbnailRecyclerAdapter.ArtViewHolder holder, int position) {
             Thumbnail thumbnail = thumbnailList.get(position);
 
-            if (thumbnail.downloadType == DOWNLOAD_TYPE_RATING) {
-                Glide.with(context)
-                        .load(R.drawable.drawable_thumbnail_rating)
-                        .centerCrop()
-                        .transition(DrawableTransitionOptions.withCrossFade())
-                        .override(DeviceController.getWidth(context) / SPAN_COUNT)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(new DrawableImageViewTarget(holder.thumbnailImageView) {
-                            @Override
-                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                                if (resource instanceof GifDrawable) ((GifDrawable) resource).setLoopCount(1);
-                                super.onResourceReady(resource, transition);
-                            }
-                        });
-            } else {
-                Glide.with(context)
-                        .load((thumbnail.artPosition == -1) ? R.drawable.drawable_thumbnail : artList.get(thumbnail.artPosition).uri)
-                        .centerCrop()
-                        .transition(DrawableTransitionOptions.withCrossFade())
-                        .override(DeviceController.getWidth(context) / SPAN_COUNT)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(holder.thumbnailImageView);
-                holder.thumbnailImageView.setColorFilter(ContextCompat.getColor(context, R.color.color_signature_filter));
-                holder.titleTextView.setText(Converter.getDownloadLabelResId(position));
-            }
+            if (thumbnail.downloadType == DOWNLOAD_TYPE_RATING) return;
+
+            holder.thumbnailLottieAnimationView.setVisibility(View.GONE);
+
+            Glide.with(context)
+                    .load((thumbnail.artPosition == -1) ? R.drawable.drawable_thumbnail : artList.get(thumbnail.artPosition).uri)
+                    .centerCrop()
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .override(DeviceController.getWidth(context) / SPAN_COUNT)
+                    .into(holder.thumbnailImageView);
+            holder.thumbnailImageView.setColorFilter(ContextCompat.getColor(context, R.color.color_signature_filter));
+            holder.titleTextView.setText(Converter.getDownloadLabelResId(position));
         }
 
         @Override

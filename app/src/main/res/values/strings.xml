@@ -28,6 +28,7 @@
     <string name="message_ignore_optimization">Set Pxloader as a power saving exclusion to prevents unexpected stops.</string>
     <string name="message_help_login">Due to the recent policy change of Pixiv, third-party login via ID/password has become impossible.\n\nDo you want to go to the Google drive where I wrote how to issue tokens?</string>
     <string name="message_rating">Please rate Pxloader.</string>
+    <string name="message_loading">There are no images or they are being loaded.</string>
 
     <string name="hint_token">Refresh Token</string>
     <string name="hint_keyword">Keyword</string>

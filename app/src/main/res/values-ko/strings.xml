@@ -29,6 +29,7 @@
     <string name="message_ignore_optimization">멈춤을 방지하기 위해 Pxloader 를 절전 예외 앱으로 설정하세요.</string>
     <string name="message_help_login">최근 픽시브의 정책 변경으로 아이디/비밀번호를 통한 서드 파티 로그인이 불가능해졌습니다.\n\n토큰 발급 방법을 작성해 둔 구글 드라이브로 이동하시겠습니까?</string>
     <string name="message_rating">Pxloader 를 평가해 주세요.</string>
+    <string name="message_loading">보관함에 이미지가 없거나 이미지를 불러오는 중입니다.</string>
 
     <string name="hint_token">새로고침 토큰</string>
     <string name="hint_keyword">키워드</string>

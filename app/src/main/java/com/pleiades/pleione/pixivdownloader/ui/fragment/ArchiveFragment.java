@@ -39,6 +39,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableOnSubscribe;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 import static com.pleiades.pleione.pixivdownloader.Config.EXTRA_NAME_POSITION;
 import static com.pleiades.pleione.pixivdownloader.Config.KEY_CUSTOM_DIRECTORY_URI;
 import static com.pleiades.pleione.pixivdownloader.Config.PARCELABLE_KEY_SCROLL;
@@ -65,64 +72,93 @@ public class ArchiveFragment extends Fragment {
         // set has options menu
         setHasOptionsMenu(true);
 
-        // initialize art list
-        DocumentFile directoryDocumentFile = Converter.getDirectoryDocumentFile(context);
-        DeviceController.readArtList(artList = new ArrayList<>(), directoryDocumentFile);
-        Collections.sort(artList);
+        Observable.create((ObservableOnSubscribe<String>) emitter -> {
+            // initialize art list
+            DocumentFile directoryDocumentFile = Converter.getDirectoryDocumentFile(context);
+            DeviceController.readArtList(artList = new ArrayList<>(), directoryDocumentFile);
+            Collections.sort(artList);
 
-        // initialize art recycler view
-        artRecyclerView = rootView.findViewById(R.id.archive_recycler);
-        artRecyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, SPAN_COUNT);
-        artRecyclerView.setLayoutManager(gridLayoutManager);
-        SimpleItemAnimator simpleItemAnimator = (SimpleItemAnimator) artRecyclerView.getItemAnimator();
-        if (simpleItemAnimator != null)
-            simpleItemAnimator.setSupportsChangeAnimations(false);
+            // on complete
+            emitter.onComplete();
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
 
-        // initialize art adapter
-        artAdapter = new ArtRecyclerAdapter();
-        artAdapter.setHasStableIds(true);
-        artRecyclerView.setAdapter(artAdapter);
+                    }
 
-        // initialize on drag selection listener
-        DragSelectTouchListener.OnDragSelectListener onDragSelectionListener = (start, end, isSelected) -> artAdapter.setSelectedRange(start, end, isSelected);
+                    @Override
+                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull String s) {
 
-        // initialize drag select touch listener
-        dragSelectTouchListener = new DragSelectTouchListener()
-                // set drag selection listener
-                .withSelectListener(onDragSelectionListener)
-                // set options
-                .withMaxScrollDistance(24);    // default: 16; 	defines the speed of the auto scrolling
-        //.withTopOffset(toolbarHeight)       // default: 0; 		set an offset for the touch region on top of the RecyclerView
-        //.withBottomOffset(toolbarHeight)    // default: 0; 		set an offset for the touch region on bottom of the RecyclerView
-        //.withScrollAboveTopRegion(enabled)  // default: true; 	enable auto scrolling, even if the finger is moved above the top region
-        //.withScrollBelowTopRegion(enabled)  // default: true; 	enable auto scrolling, even if the finger is moved below the top region
-        //.withDebug(enabled);                // default: false;
-        artRecyclerView.addOnItemTouchListener(dragSelectTouchListener);
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        rootView.findViewById(R.id.archive_message).setVisibility(View.GONE);
+
+                        // initialize art recycler view
+                        artRecyclerView = rootView.findViewById(R.id.archive_recycler);
+                        artRecyclerView.setHasFixedSize(true);
+                        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, SPAN_COUNT);
+                        artRecyclerView.setLayoutManager(gridLayoutManager);
+                        SimpleItemAnimator simpleItemAnimator = (SimpleItemAnimator) artRecyclerView.getItemAnimator();
+                        if (simpleItemAnimator != null)
+                            simpleItemAnimator.setSupportsChangeAnimations(false);
+
+                        // initialize art adapter
+                        artAdapter = new ArtRecyclerAdapter();
+                        artAdapter.setHasStableIds(true);
+                        artRecyclerView.setAdapter(artAdapter);
+
+                        // initialize on drag selection listener
+                        DragSelectTouchListener.OnDragSelectListener onDragSelectionListener = (start, end, isSelected) -> artAdapter.setSelectedRange(start, end, isSelected);
+
+                        // initialize drag select touch listener
+                        dragSelectTouchListener = new DragSelectTouchListener()
+                                // set drag selection listener
+                                .withSelectListener(onDragSelectionListener)
+                                // set options
+                                .withMaxScrollDistance(24);    // default: 16; 	defines the speed of the auto scrolling
+                        //.withTopOffset(toolbarHeight)       // default: 0; 		set an offset for the touch region on top of the RecyclerView
+                        //.withBottomOffset(toolbarHeight)    // default: 0; 		set an offset for the touch region on bottom of the RecyclerView
+                        //.withScrollAboveTopRegion(enabled)  // default: true; 	enable auto scrolling, even if the finger is moved above the top region
+                        //.withScrollBelowTopRegion(enabled)  // default: true; 	enable auto scrolling, even if the finger is moved below the top region
+                        //.withDebug(enabled);                // default: false;
+                        artRecyclerView.addOnItemTouchListener(dragSelectTouchListener);
+                    }
+                });
 
         return rootView;
     }
 
-    public boolean onBackPressed(){
-        if (artAdapter.selectionMode) {
-            artAdapter.unsetSelectedAll();
-            artAdapter.selectionMode = false;
-            ((FragmentActivity) context).invalidateOptionsMenu();
+    public boolean onBackPressed() {
+        if (artAdapter != null)
+            if (artAdapter.selectionMode) {
+                artAdapter.unsetSelectedAll();
+                artAdapter.selectionMode = false;
+                ((FragmentActivity) context).invalidateOptionsMenu();
 
-            return true;
-        }
+                return true;
+            }
         return false;
     }
 
     @Override
     public void onResume() {
         // restore recycler view position
-        if (bundle != null) {
-            parcelable = bundle.getParcelable(PARCELABLE_KEY_SCROLL);
-            RecyclerView.LayoutManager layoutManager = artRecyclerView.getLayoutManager();
-            if (layoutManager != null)
-                layoutManager.onRestoreInstanceState(parcelable);
-        }
+        if (artRecyclerView != null)
+            if (bundle != null) {
+                parcelable = bundle.getParcelable(PARCELABLE_KEY_SCROLL);
+                RecyclerView.LayoutManager layoutManager = artRecyclerView.getLayoutManager();
+                if (layoutManager != null)
+                    layoutManager.onRestoreInstanceState(parcelable);
+            }
 
         super.onResume();
     }
@@ -154,14 +190,17 @@ public class ArchiveFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         menu.clear();
 
-        if (artAdapter.getSelectionMode())
-            inflater.inflate(R.menu.menu_archive_selected, menu);
-        else
-            inflater.inflate(R.menu.menu_main, menu);
+        if (artAdapter != null)
+            if (artAdapter.getSelectionMode()) {
+                inflater.inflate(R.menu.menu_archive_selected, menu);
+                return;
+            }
+        inflater.inflate(R.menu.menu_main, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (artList == null || artAdapter == null) return false;
         SharedPreferences settingPrefs = context.getSharedPreferences(SETTING_PREFS, Context.MODE_PRIVATE);
         String customDirectoryUri = settingPrefs.getString(KEY_CUSTOM_DIRECTORY_URI, null);
         int id = item.getItemId();
@@ -172,7 +211,7 @@ public class ArchiveFragment extends Fragment {
 
         if (id == R.id.action_delete) {
             Collections.reverse(selectedList);
-            for (int position : selectedList){
+            for (int position : selectedList) {
                 boolean result = false;
                 if (artList.size() > position) {
                     if (customDirectoryUri == null) {
