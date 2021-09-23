@@ -7,4 +7,5 @@
     <color name="color_signature_dark_blue">#007DD1</color>
     <color name="color_signature_orange">#FD9E16</color>
     <color name="color_signature_filter">#4D000000</color>
+    <color name="color_signature_filter_darker">#99000000</color>
 </resources>

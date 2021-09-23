@@ -187,7 +187,7 @@ public class Client {
             httpURLConnection.setRequestMethod("GET");
             httpURLConnection.setRequestProperty("Authorization", String.format("Bearer %s", accessToken));
             httpURLConnection.setRequestProperty("Referer", "http://spapi.pixiv.net/");
-            httpURLConnection.setRequestProperty("User", "PixivIOSApp/7.9.7");
+            httpURLConnection.setRequestProperty("User", "PixivIOSApp/8.1.0");
 
             // initialize response JSON object
             JSONObject responseJSONObject = commonClient.getResponseJSONObject(httpURLConnection);

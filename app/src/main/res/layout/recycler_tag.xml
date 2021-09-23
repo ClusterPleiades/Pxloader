@@ -24,12 +24,12 @@
             android:layout_width="@dimen/image_size_button"
             android:layout_height="@dimen/image_size_button"
             android:outlineProvider="none"
-            android:tint="@color/color_signature_light_blue"
             app:backgroundTint="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/icon_remove"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            app:tint="@color/color_signature_light_blue" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

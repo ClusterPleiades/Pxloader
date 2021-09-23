@@ -61,6 +61,7 @@
     <string name="toast_error_path">Choose a deeper path.</string>
     <string name="toast_error_remove_ads">%d days left for promotion.</string>
     <string name="toast_error_guest">This cannot be used by the guest.</string>
+    <string name="toast_error_temporarily_unavailable">Search and Rankings are unavailable temporarily. We will fix it as soon as possible.</string>
 
     <string name="setting_create_sub_directory">Create Subdirectory</string>
     <string name="setting_directory_path">Directory Path</string>

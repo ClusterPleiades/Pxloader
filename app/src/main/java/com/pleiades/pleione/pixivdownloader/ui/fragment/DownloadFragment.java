@@ -93,14 +93,16 @@ public class DownloadFragment extends Fragment {
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .override(DeviceController.getWidth(context), DeviceController.getWidth(context) / 2)
                 .into(searchThumbnailImageView);
-        searchThumbnailImageView.setColorFilter(ContextCompat.getColor(context, R.color.color_signature_filter));
+        searchThumbnailImageView.setColorFilter(ContextCompat.getColor(context, R.color.color_signature_filter_darker));
 
         // initialize search text view
         TextView searchTitleTextView = rootView.findViewById(R.id.download_banner_title);
         searchTitleTextView.setText(Converter.getDownloadLabelResId(DOWNLOAD_TYPE_SEARCH));
         searchThumbnailImageView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, SearchActivity.class);
-            startActivity(intent);
+            // TODO update
+            Toast.makeText(context, R.string.toast_error_temporarily_unavailable, LENGTH_SHORT).show();
+//            Intent intent = new Intent(context, SearchActivity.class);
+//            startActivity(intent);
         });
 
         // initialize thumbnail list
@@ -277,9 +279,12 @@ public class DownloadFragment extends Fragment {
                         return;
 
                     Intent intent = null;
+                    // TODO update
                     switch (thumbnailList.get(position).downloadType) {
                         case DOWNLOAD_TYPE_RANKINGS:
-                            intent = new Intent(context, RankingsActivity.class);
+                            // TODO update
+                            Toast.makeText(context, R.string.toast_error_temporarily_unavailable, LENGTH_SHORT).show();
+//                            intent = new Intent(context, RankingsActivity.class);
                             break;
                         case DOWNLOAD_TYPE_FOLLOWING:
                             if (isGuest)
@@ -322,6 +327,7 @@ public class DownloadFragment extends Fragment {
         public void onBindViewHolder(@NonNull ThumbnailRecyclerAdapter.ArtViewHolder holder, int position) {
             Thumbnail thumbnail = thumbnailList.get(position);
 
+
             if (thumbnail.downloadType == DOWNLOAD_TYPE_RATING) return;
 
             holder.thumbnailLottieAnimationView.setVisibility(View.GONE);
@@ -333,7 +339,13 @@ public class DownloadFragment extends Fragment {
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .override(DeviceController.getWidth(context) / SPAN_COUNT)
                     .into(holder.thumbnailImageView);
-            holder.thumbnailImageView.setColorFilter(ContextCompat.getColor(context, R.color.color_signature_filter));
+
+            // TODO update
+            if(thumbnail.downloadType == DOWNLOAD_TYPE_SEARCH || thumbnail.downloadType == DOWNLOAD_TYPE_RANKINGS)
+                holder.thumbnailImageView.setColorFilter(ContextCompat.getColor(context, R.color.color_signature_filter_darker));
+            else
+                holder.thumbnailImageView.setColorFilter(ContextCompat.getColor(context, R.color.color_signature_filter));
+
             holder.titleTextView.setText(Converter.getDownloadLabelResId(position));
         }
 
