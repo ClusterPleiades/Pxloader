@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.4"
+    buildToolsVersion '30.0.3'
 
     // fix for "java.lang.NoSuchMethodError: No static method metafactory  (declaration of 'java.lang.invoke.LambdaMetafactory' appears in /apex/com.android.runtime/javalib/core-oj.jar)"
     // refer by https://stackoverflow.com/questions/59448845/no-static-method-metafactory
@@ -14,8 +14,8 @@ android {
         applicationId "com.pleiades.pleione.pixivdownloader"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 85
-        versionName "5.1.4"
+        versionCode 86
+        versionName "5.1.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
