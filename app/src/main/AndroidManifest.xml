@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.pleiades.pleione.pixivdownloader">
+
+    <!-- permission -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Pxloader"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
+        android:resizeableActivity="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.SplashTheme">
+
+            <!-- intent action -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- intent action send -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/*" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:exported="true"
+            android:label=""
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:exported="true"
+            android:label=""
+            android:windowSoftInputMode="adjustResize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.activity.download.SearchActivity"
+            android:exported="true"
+            android:label="@string/label_search"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activity.download.RankingsActivity"
+            android:exported="true"
+            android:label="@string/label_rankings"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activity.download.FollowingActivity"
+            android:exported="true"
+            android:label="@string/label_following"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activity.download.CollectionActivity"
+            android:exported="true"
+            android:label="@string/label_collection"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activity.download.UserActivity"
+            android:exported="true"
+            android:label="@string/label_user"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activity.download.WorkActivity"
+            android:exported="true"
+            android:label="@string/label_work"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ui.activity.HelpActivity"
+            android:exported="true"
+            android:label="@string/label_help"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activity.ImageActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activity.SettingsActivity"
+            android:exported="true"
+            android:label="@string/label_settings"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activity.TagsActivity"
+            android:exported="true"
+            android:label="@string/label_tags"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- provider -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.pleiades.pleione.pixivdownloader.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+</manifest>
