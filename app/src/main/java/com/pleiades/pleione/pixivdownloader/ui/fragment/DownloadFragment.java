@@ -100,9 +100,9 @@ public class DownloadFragment extends Fragment {
         searchTitleTextView.setText(Converter.getDownloadLabelResId(DOWNLOAD_TYPE_SEARCH));
         searchThumbnailImageView.setOnClickListener(v -> {
             // TODO update
-            Toast.makeText(context, R.string.toast_error_temporarily_unavailable, LENGTH_SHORT).show();
-//            Intent intent = new Intent(context, SearchActivity.class);
-//            startActivity(intent);
+//            Toast.makeText(context, R.string.toast_error_temporarily_unavailable, LENGTH_SHORT).show();
+            Intent intent = new Intent(context, SearchActivity.class);
+            startActivity(intent);
         });
 
         // initialize thumbnail list
