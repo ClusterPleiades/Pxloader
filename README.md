@@ -17,7 +17,7 @@ Android Application for Downloading Images of Pixiv
 - <a href="#Features">Features</a>
   - <a href="#Download">Download</a>
   - <a href="#Archive">Archive</a>
-  - <a href="#Setting">Setting</a>
+  - <a href="#Settings">Settings</a>
 - <a href="#Usage">Usage</a>
   - <a href="#Search">Search</a>
   - <a href="#User">User</a>
@@ -69,7 +69,7 @@ We can enter work ID or get it from the Pixiv.
 Display image files on the directory path.
 <br><br>
 
-### Setting
+### Settings
 <img src="https://user-images.githubusercontent.com/81938036/150550364-ebd68a8a-e1fd-4431-a832-2e5d69afeec8.png" width="256" height="369">
 
 - Create Subdirectory  
