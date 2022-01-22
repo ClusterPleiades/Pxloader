@@ -15,7 +15,13 @@ Android Application for Downloading Images of Pixiv
 ## Contents
 - <a href="#About">About</a>
 - <a href="#Features">Features</a>
+  - <a href="#Download">Download</a>
+  - <a href="#Archive">Archive</a>
+  - <a href="#Setting">Setting</a>
 - <a href="#Usage">Usage</a>
+  - <a href="#Search">Search</a>
+  - <a href="#User">User</a>
+  - <a href="#Work">Work ID</a>
 <br><br>
 
 ## About
