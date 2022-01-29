@@ -97,12 +97,6 @@ public class CollectionActivity extends AppCompatActivity {
             } else
                 DeviceController.showOptimizationDialog(activity);
         });
-
-        // show ad
-        if (interstitialAd != null) {
-            DeviceController.setInterstitialAdCallback(activity);
-            interstitialAd.show(activity);
-        }
     }
 
     @Override
