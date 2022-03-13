@@ -8,7 +8,7 @@ Android Application for Downloading Images of Pixiv
   <img src="https://img.shields.io/badge/Play Store-5.1.4-0096FA">
 </a>
 <a href="https://play.google.com/store/apps/details?id=com.pleiades.pleione.pixivdownloader">
-  <img src="https://img.shields.io/badge/Downloads-22k++-FD9E16">
+  <img src="https://img.shields.io/badge/Downloads-23k++-FD9E16">
 </a>
 <br><br>
 
